@@ -3,11 +3,13 @@ import { IoIosAdd } from 'react-icons/io';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { Textarea } from './ui/textarea';
 
 const ToDoDialog = () => {
   return (
@@ -22,6 +24,23 @@ const ToDoDialog = () => {
           <DialogTitle className='text-3xl font-bold'>
             Create your task
           </DialogTitle>
+          <div className='grid w-full items-center gap-2 pt-8'>
+            <Label htmlFor='taskname'>Task Title</Label>
+            <Input
+              type='text'
+              id='taskname'
+              placeholder='Task'
+              className='bg-black/20 border-none w-full'
+            />
+          </div>
+          <div className='grid w-full items-center gap-2 pt-4'>
+            <Label htmlFor='taskname'>Task Description</Label>
+            <Textarea
+              id='taskname'
+              placeholder='Description'
+              className='bg-black/20 border-none w-full resize-none'
+            />
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>
