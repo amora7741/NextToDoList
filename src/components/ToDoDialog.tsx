@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from './ui/button';
 import { IoIosAdd } from 'react-icons/io';
 import {
@@ -9,10 +11,18 @@ import {
 } from '@/components/ui/dialog';
 
 import ToDoForm from './ToDoForm';
+import { Todo } from './ToDoWrapper';
+import { useState } from 'react';
 
-const ToDoDialog = () => {
+const ToDoDialog = ({ addTask }: { addTask: (task: Todo) => void }) => {
+  const [open, setOpen] = useState(false);
+
+  const closeDialog = () => {
+    setOpen(false);
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className='bg-black/50 hover:bg-black/30 sm:absolute right-0'>
           <IoIosAdd className='fill-white w-8 h-auto' />
@@ -24,7 +34,7 @@ const ToDoDialog = () => {
             Create your task
           </DialogTitle>
         </DialogHeader>
-        <ToDoForm />
+        <ToDoForm addTask={addTask} closeDialog={closeDialog} />
       </DialogContent>
     </Dialog>
   );

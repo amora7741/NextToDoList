@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import ToDoDialog from './ToDoDialog';
 
-type Todo = {
+export type Todo = {
   title: string;
   description: string;
   id: string;
@@ -28,8 +28,15 @@ const ToDoWrapper = () => {
         <h1 className='text-4xl sm:text-5xl text-pink-200 font-bold mx-auto'>
           Your Tasks
         </h1>
-        <ToDoDialog />
+        <ToDoDialog addTask={addTask} />
       </div>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id} className='text-white font-bold text-4xl'>
+            {task.title}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

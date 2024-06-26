@@ -12,6 +12,8 @@ import {
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
+import { Todo } from './ToDoWrapper';
+import { v4 } from 'uuid';
 
 const formSchema = z.object({
   title: z
@@ -23,7 +25,13 @@ const formSchema = z.object({
     .max(50, { message: 'Your title must be less than 50 characters.' }),
 });
 
-const ToDoForm = () => {
+const ToDoForm = ({
+  addTask,
+  closeDialog,
+}: {
+  addTask: (task: Todo) => void;
+  closeDialog: () => void;
+}) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,7 +41,13 @@ const ToDoForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    const newTask: Todo = {
+      ...values,
+      id: v4(),
+      completed: false,
+    };
+    addTask(newTask);
+    closeDialog();
   };
 
   return (
