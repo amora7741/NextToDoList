@@ -11,8 +11,11 @@ const ToDoItem = ({
   deleteTask: () => void;
 }) => {
   return (
-    <li className='bg-black/40 p-4 rounded-md flex flex-col space-y-4 justify-between'>
-      <p className='text-white font-semibold text-3xl'>{task.title}</p>
+    <li className='bg-black/40 p-4 rounded-md flex flex-col space-y-4 justify-between break-words'>
+      <div>
+        <p className='text-white font-semibold text-3xl'>{task.title}</p>
+        <p className='text-white text-xl italic'>{task.description}</p>
+      </div>
       <div className='flex space-x-2 ml-auto'>
         <Button className='bg-black/50 hover:bg-black/30'>
           <FaCheck className='fill-green-500 w-5 h-auto' />
