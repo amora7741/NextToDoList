@@ -18,13 +18,13 @@ const ToDoWrapper = () => {
     setTasks((t) => [...t, task]);
   };
 
-  const deleteTask = (task: Todo) => {
-    const newTasks = tasks.filter((t) => t.id != task.id);
+  const deleteTask = (taskId: string) => {
+    const newTasks = tasks.filter((t) => t.id !== taskId);
     setTasks(newTasks);
   };
 
   return (
-    <div className='flex flex-col gap-16 z-50 w-full max-w-3xl h-fit bg-black/30 p-2 sm:p-16 backdrop-blur-sm rounded-lg'>
+    <div className='flex flex-col gap-16 z-50 w-full max-w-3xl h-fit bg-black/30 px-4 py-8 sm:p-10 backdrop-blur-sm rounded-lg'>
       <div className='relative flex flex-col gap-4 sm:flex-row items-center text-center'>
         <h1 className='text-4xl sm:text-5xl text-pink-200 font-bold mx-auto'>
           Your Tasks
@@ -34,7 +34,11 @@ const ToDoWrapper = () => {
       {tasks.length > 0 && (
         <ul className='space-y-4'>
           {tasks.map((task) => (
-            <ToDoItem task={task} key={task.id} />
+            <ToDoItem
+              task={task}
+              key={task.id}
+              deleteTask={() => deleteTask(task.id)}
+            />
           ))}
         </ul>
       )}
