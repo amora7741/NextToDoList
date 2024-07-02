@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import ToDoDialog from './ToDoDialog';
 import ToDoItem from './ToDoItem';
 
@@ -13,6 +13,7 @@ export type Todo = {
 
 const ToDoWrapper = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const addTask = (task: Todo) => {
     setTasks((t) => [...t, task]);
@@ -31,8 +32,25 @@ const ToDoWrapper = () => {
     setTasks(newTasks);
   };
 
+  useEffect(() => {
+    if (!isLoading) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  }, [tasks, isLoading]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+
+    setIsLoading(false);
+  }, []);
+
   return (
-    <div className='flex flex-col gap-16 z-50 w-full max-w-3xl h-fit bg-black/30 px-4 py-8 sm:p-10 backdrop-blur-sm rounded-lg'>
+    <div className='flex flex-col gap-16 z-50 w-full max-w-7xl h-fit bg-black/30 px-4 py-8 sm:p-10 backdrop-blur-sm rounded-lg'>
       <div className='relative flex flex-col gap-4 sm:flex-row items-center text-center'>
         <h1 className='text-4xl sm:text-5xl text-pink-200 font-bold mx-auto'>
           Your Tasks
