@@ -17,3 +17,13 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #7b7b7b96;
 }
+
+.safari-blur {
+  -webkit-backdrop-filter: blur(24px);
+}
+
+@media (max-width: 768px) {
+  .safari-height {
+    height: 100vh;
+  }
+}
